@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -27,14 +28,11 @@ public class PlayerController : MonoBehaviour
     private bool _resetForces;
 
 
-
-
-
-
     void Start()
     {
         _rb = gameObject.GetComponent<Rigidbody2D>();
         _score = GameObject.FindWithTag("Score").GetComponent<Score>();
+        GameManager.Instance.LifePoints = GameManager.Instance.MaxLifePoints;
     }
 
 
@@ -60,6 +58,8 @@ public class PlayerController : MonoBehaviour
         {
             Physics.gravity = new Vector3(0, -9.81f, 0);
         }
+
+        if (GameManager.Instance.LifePoints <= 0) {GameOver(); }
     }
 
     private void FixedUpdate()
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("horizontalInput", movement);
         animator.SetFloat("yVelocity", _rb.velocity.y);
 
-        //déplacement
+        //dï¿½placement
         transform.position += new Vector3(movement * movementSpeed * Time.deltaTime, 0, 0);
         characterSprite.localScale = new Vector3(Mathf.Sign(movement) * Mathf.Abs(characterSprite.localScale.x), characterSprite.localScale.y, characterSprite.localScale.z);
         
@@ -113,10 +113,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void GameOver()
+    {
+
+    }
+
     IEnumerator LooseLifePoint(float duration, int flickeringNumber, float newAlpha)
     {
 
         SpriteRenderer spriteRenderComponent = characterSprite.GetComponent<SpriteRenderer>();
+        GameManager.Instance.LifePoints--;
+
+        _score.UpdateLife();
+
+
         for (int i = 0; i < flickeringNumber; i++)
         {
             spriteRenderComponent.color = new Color(spriteRenderComponent.color.r, spriteRenderComponent.color.g, spriteRenderComponent.color.b, newAlpha);
