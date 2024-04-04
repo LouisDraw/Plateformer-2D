@@ -3,24 +3,27 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Controls Parameters")]
     [SerializeField] float jumpHeight;
     [SerializeField] float movementSpeed;
 
+    [Header("Ground Detection")]
     [SerializeField] private float raycastOffset;
     [SerializeField] LayerMask groundLayerMask;
     [SerializeField] Transform raycastOrigin1;
     [SerializeField] Transform raycastOrigin2;
 
+    [Header("Animation Parameters")]
     [SerializeField] Animator animator;
     [SerializeField] Transform characterSprite;
 
     private Score _score;
-
     private Rigidbody2D _rb;
     private bool _canJump;
     private bool _isGrounded;
@@ -52,7 +55,7 @@ public class PlayerController : MonoBehaviour
         }
         if (_isGrounded)
         {
-            //Physics.gravity = Vector3.zero;
+            Physics.gravity = Vector3.zero;
         }
         else
         {
@@ -115,8 +118,10 @@ public class PlayerController : MonoBehaviour
 
     private void GameOver()
     {
+        Camera.main.gameObject.GetComponent<PostProcessVolume>().enabled = true;
 
     }
+
 
     IEnumerator LooseLifePoint(float duration, int flickeringNumber, float newAlpha)
     {
@@ -125,6 +130,10 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.LifePoints--;
 
         _score.UpdateLife();
+        if (GameManager.Instance.LifePoints <= 0)
+        {
+            GameManager.Instance.GetComponent<GameOverController>().GameOver();
+        }
 
 
         for (int i = 0; i < flickeringNumber; i++)
