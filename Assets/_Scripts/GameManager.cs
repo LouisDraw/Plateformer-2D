@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Scene _mainMenuScene;
     [SerializeField] private Scene _nextScene;
 
+    [SerializeField] private GameObject _instructionText;
+
 
     private int _coinScore = 0;
     private int _lifepoint;
@@ -90,5 +92,11 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
         _lifepoint = _maxLifePoints;
+    }
+
+    public void ShowInstruction(bool enable)
+    {
+        _instructionText.SetActive(enable);
+        Debug.Log("set active " + enable);
     }
 }

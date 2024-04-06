@@ -102,7 +102,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.layer);
         if (collision.gameObject.layer == 8)
         {
             collision.gameObject.GetComponentInParent<Enemies>().Kill();
