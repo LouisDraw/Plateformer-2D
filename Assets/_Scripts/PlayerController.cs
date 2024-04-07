@@ -61,8 +61,8 @@ public class PlayerController : MonoBehaviour
         {
             Physics.gravity = new Vector3(0, -9.81f, 0);
         }
-
-        if (GameManager.Instance.LifePoints <= 0) {GameOver(); }
+        if (gameObject.transform.position.y < -15) {GameOver(); }
+        
     }
 
     private void FixedUpdate()
@@ -117,8 +117,11 @@ public class PlayerController : MonoBehaviour
 
     private void GameOver()
     {
-        Camera.main.gameObject.GetComponent<PostProcessVolume>().enabled = true;
-
+        GameManager.Instance.GetComponent<GameOverController>().GameOver();
+        Destroy(GetComponent<BoxCollider2D>());
+        _rb.mass = 0f;
+        Physics2D.gravity = new Vector2(0, 0);
+        Destroy(GetComponent<PlayerController>());
     }
 
 
@@ -131,7 +134,7 @@ public class PlayerController : MonoBehaviour
         _score.UpdateLife();
         if (GameManager.Instance.LifePoints <= 0)
         {
-            GameManager.Instance.GetComponent<GameOverController>().GameOver();
+            GameOver();
         }
 
 
