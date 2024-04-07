@@ -33,13 +33,13 @@ public class GameOverController : MonoBehaviour
     private void RestartClicked(ClickEvent _event)
     {
         Debug.Log("Restart button clicked");
-        SceneManager.LoadScene(GameManager.Instance.NextScene.name);
+        SceneManager.LoadScene(GameManager.Instance.NextScene);
     }
 
     private void MainMenuClicked(ClickEvent _event)
     {
         Debug.Log("Main Menu clicked");
-        SceneManager.LoadScene(GameManager.Instance.MainMenuScene.name);
+        SceneManager.LoadScene(GameManager.Instance.MainMenuScene);
     }
 
     public void GameOver()

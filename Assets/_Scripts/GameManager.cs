@@ -20,9 +20,9 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Scene Management")]
-    [SerializeField] private Scene _previousScene;
-    [SerializeField] private Scene _mainMenuScene;
-    [SerializeField] private Scene _nextScene;
+    [SerializeField] private string _previousScene;
+    [SerializeField] private string _mainMenuScene;
+    [SerializeField] private string _nextScene;
 
     [SerializeField] private GameObject _instructionText;
 
@@ -46,15 +46,15 @@ public class GameManager : MonoBehaviour
 
 
     // Scenes Accessibilty
-    public Scene NextScene
+    public string NextScene
     {
         get => _nextScene;
     }
-    public Scene PreviousScene
+    public string PreviousScene
     {
         get => _previousScene;
     }
-    public Scene MainMenuScene
+    public string MainMenuScene
     {
         get => _mainMenuScene;
     }
