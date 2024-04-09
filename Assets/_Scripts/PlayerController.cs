@@ -23,18 +23,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Transform characterSprite;
 
-    private Score _score;
+    private Life _life;
     private Rigidbody2D _rb;
     private bool _canJump;
     private bool _isGrounded;
     private bool _isJumping;
     private bool _resetForces;
+    private AudioController audioController;
 
 
     void Start()
     {
         _rb = gameObject.GetComponent<Rigidbody2D>();
-        _score = GameObject.FindWithTag("Score").GetComponent<Score>();
+        audioController = GameManager.Instance.GetComponent<AudioController>();
+        _life = GameObject.FindWithTag("Life").GetComponent<Life>();
         GameManager.Instance.LifePoints = GameManager.Instance.MaxLifePoints;
     }
 
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
         {
             Physics.gravity = new Vector3(0, -9.81f, 0);
         }
-        if (gameObject.transform.position.y < -15) {GameOver(); }
+        if (gameObject.transform.position.y < -15 && !GameManager.Instance.Death) {GameOver(); }
         
     }
 
@@ -77,6 +79,7 @@ public class PlayerController : MonoBehaviour
 
         if (_canJump)
         {
+            audioController.PlayJump();
             _rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
             _canJump = false;
             _isJumping = true;
@@ -110,6 +113,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.layer == 7)
         {
+            audioController.PlayAttack();
             StartCoroutine(collision.gameObject.GetComponentInParent<Enemies>().DisableForSecond(2f));
             StartCoroutine(LooseLifePoint(2f, 4, .2f));
         }
@@ -117,21 +121,19 @@ public class PlayerController : MonoBehaviour
 
     private void GameOver()
     {
+        audioController.PlayGameOver();
+        GameManager.Instance.Death = true;
         GameManager.Instance.GetComponent<GameOverController>().GameOver();
-        Destroy(GetComponent<BoxCollider2D>());
-        _rb.mass = 0f;
-        Physics2D.gravity = new Vector2(0, 0);
-        Destroy(GetComponent<PlayerController>());
     }
 
 
     IEnumerator LooseLifePoint(float duration, int flickeringNumber, float newAlpha)
     {
-
+        audioController.PlayLooseLife();
         SpriteRenderer spriteRenderComponent = characterSprite.GetComponent<SpriteRenderer>();
         GameManager.Instance.LifePoints--;
 
-        _score.UpdateLife();
+        _life.UpdateLife();
         if (GameManager.Instance.LifePoints <= 0)
         {
             GameOver();

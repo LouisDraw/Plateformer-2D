@@ -5,15 +5,17 @@ using UnityEngine;
 public class Enemies : MonoBehaviour
 {
 
-    [SerializeField] Transform pointA;
-    [SerializeField] Transform pointB;
+    [SerializeField] List<Transform> waypoints;
     [SerializeField] float speed;
 
-    private float _rotation = -1;
+    private int _currentWaypoint;
+    private int _nextWaypoint;
+    //private List<Transform> _waypoints= new List<Transform>(waypointsInput);
+    private bool _isPausing;
     private Animator _animator;
 
     private bool _isDead;
-
+    private AudioController audioController;
 
 
 
@@ -21,6 +23,7 @@ public class Enemies : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
+        audioController = GameManager.Instance.GetComponent<AudioController>();
     }
 
     // Update is called once per frame
@@ -33,29 +36,36 @@ public class Enemies : MonoBehaviour
     }
 
 
-    void Run()
+    private void Run()
     {
-        float x = gameObject.transform.position.x;
-        if (x < pointA.position.x || x > pointB.position.x)
-        {
-            _rotation *= -1;
-            if (_rotation == 1)
-            {
-                transform.position = pointA.position;
-            }
-            else
-            {
-                transform.position = pointB.position;
-            }
+        if (_isPausing) { return; }
 
-            transform.Rotate(Vector3.up * 180);
+        if(Vector3.Distance(transform.position, waypoints[_currentWaypoint + 1].position) < 0.1f)
+        {
+            UpdateWaypoint();
         }
-        transform.position += new Vector3(speed * Time.deltaTime * _rotation, 0, 0);
+
+        transform.Translate((waypoints[_currentWaypoint + 1].position - transform.position).normalized * Time.deltaTime * speed);
+    }
+
+    private void UpdateWaypoint()
+    {
+        if(_currentWaypoint + 1 == waypoints.Count - 1)
+        {
+            waypoints.Reverse();
+            _currentWaypoint = 0;
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        }
+        else
+        {
+            _currentWaypoint += 1;
+        }
     }
 
 
     public void Kill()
     {
+        audioController.PlayExplosion();
         _isDead = true;
         Destroy(transform.GetChild(0).gameObject);
         Destroy(transform.GetChild(0).gameObject);

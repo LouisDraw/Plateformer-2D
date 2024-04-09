@@ -288,9 +288,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7656a8e57d6a8a4c9c22c0a9d72a310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointA: {fileID: 2559566608946370343}
-  pointB: {fileID: 8003693252090358897}
-  speed: 7
+  waypoints:
+  - {fileID: 8003693252090358897}
+  - {fileID: 2559566608946370343}
+  speed: 3
 --- !u!95 &4482632846581432833
 Animator:
   serializedVersion: 5

@@ -14010,7 +14010,10 @@ PrefabInstance:
     - {fileID: 5419903618849861702, guid: a0683eb90eaf073499635fe612e63620, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7239954077146306336, guid: a0683eb90eaf073499635fe612e63620, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1193364986}
   m_SourcePrefab: {fileID: 100100000, guid: a0683eb90eaf073499635fe612e63620, type: 3}
 --- !u!4 &1112827899 stripped
 Transform:
@@ -14082,6 +14085,44 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c4f05f8e2d061d438f3c8903d5e1227, type: 3}
+--- !u!1 &1193364985 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7239954077146306336, guid: a0683eb90eaf073499635fe612e63620, type: 3}
+  m_PrefabInstance: {fileID: 892581485}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1193364986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193364985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420a3b1c9ad7d174eb074999928a3557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundMusics:
+  - {fileID: 8300000, guid: b6dc04f2884eb5b46b675390b1e75e84, type: 3}
+  - {fileID: 8300000, guid: 6979d52fda0579441a2122b95abaf337, type: 3}
+  - {fileID: 8300000, guid: 596e0f53d0760684897f73aa6d85324a, type: 3}
+  - {fileID: 8300000, guid: 0c2f5e196afe4644d9b1ffb8d644851d, type: 3}
+  - {fileID: 8300000, guid: 57f12d84ebf04324e92e37dc70ac26b1, type: 3}
+  backgroundVolume: 0.2
+  _pointClip: {fileID: 8300000, guid: 110e026ecef37944a89def1d0a6486d8, type: 3}
+  _pointVolume: 1
+  _explosionClip: {fileID: 8300000, guid: cd5aeb15cc853e642ae2612448804e2d, type: 3}
+  _explosionVolume: 1
+  _attackClip: {fileID: 8300000, guid: e533db91276002648a7558db03bde92f, type: 3}
+  _attackVolume: 4
+  _looseLifeClip: {fileID: 8300000, guid: 1caba415fbd8d2a4dbff87b81d2c979d, type: 3}
+  _looseLifeVolume: 0.1
+  _gameOverClip: {fileID: 8300000, guid: fdfa79fe07110e74496b305976a2ea1f, type: 3}
+  _gameOverVolume: 1
+  _jumpClip: {fileID: 8300000, guid: 8f5d77ca10a2e1a4aba1938ffcd0c874, type: 3}
+  _jumpVolume: 1
+  _confirmClip: {fileID: 8300000, guid: ea6f411036cede049b6d4831e08d55cc, type: 3}
+  _confirmVolume: 1
 --- !u!1001 &1278212978
 PrefabInstance:
   m_ObjectHideFlags: 0

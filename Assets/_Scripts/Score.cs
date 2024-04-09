@@ -11,15 +11,10 @@ public class Score : MonoBehaviour
     void Start()
     {
         text = GetComponent<TextMeshProUGUI>();
-        UpdateLife();
-
     }
-
-    public void UpdateLife()
+     
+    public void UpdateScore()
     { 
-        string newText = string.Empty;
-        newText = string.Concat(Enumerable.Repeat("L ", GameManager.Instance.LifePoints));
-        newText += string.Concat(Enumerable.Repeat("Q ", GameManager.Instance.MaxLifePoints - GameManager.Instance.LifePoints));
-        text.text = newText;
+        text.text = GameManager.Instance.Coins.ToString();
     }
 }
