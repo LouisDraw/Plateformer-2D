@@ -1,9 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -25,7 +21,8 @@ public class GameOverController : MonoBehaviour
     {
         Camera.main.gameObject.GetComponent<PostProcessVolume>().profile = GameManager.Instance.GetPPPMain;
         m_UIDocument.enabled = false;
-        audioController = GameManager.Instance.GetComponent<AudioController>();
+        if (GameManager.Instance is null)
+            {audioController = GameManager.Instance.GetComponent<AudioController>();}
     }
 
     private void RageQuitClicked(ClickEvent _event)

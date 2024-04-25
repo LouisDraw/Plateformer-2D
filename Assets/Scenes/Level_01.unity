@@ -83229,6 +83229,10 @@ PrefabInstance:
       value: Level_02
       objectReference: {fileID: 0}
     - target: {fileID: 8325202412211969402, guid: a0683eb90eaf073499635fe612e63620, type: 3}
+      propertyPath: _maxLifePoints
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325202412211969402, guid: a0683eb90eaf073499635fe612e63620, type: 3}
       propertyPath: _instructionText
       value: 
       objectReference: {fileID: 1488865599}

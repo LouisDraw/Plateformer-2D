@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawLine(raycastOrigin2.position, new Vector3(raycastOrigin2.position.x, raycastOrigin2.position.y - raycastOffset, raycastOrigin2.position.z), UnityEngine.Color.green);
         //saut
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) && _isGrounded && !_isJumping)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && _isGrounded && !_isJumping)
         {
             _canJump = true;
         }
